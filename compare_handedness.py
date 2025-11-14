@@ -440,9 +440,7 @@ def main():
         return
 
     # Get results directory from user
-    default_results_dir = Path(__file__).parent / "benchmark_results" / "rft_lopo"
-    print(f"\nDefault results directory: {default_results_dir}")
-    results_dir_input = input("Enter results directory path (or press Enter for default): ").strip()
+    results_dir_input = Path(__file__).parent / "benchmark_results" / "rft_lopo"
 
     if results_dir_input:
         results_dir = Path(results_dir_input)
@@ -450,9 +448,7 @@ def main():
         results_dir = default_results_dir
 
     # Get sensor location
-    sensor_location = input("\nEnter sensor location [LeftWrist]: ").strip()
-    if not sensor_location:
-        sensor_location = "LeftWrist"
+    sensor_location = "LeftWrist"
 
     # Analyze results
     try:

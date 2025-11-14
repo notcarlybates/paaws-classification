@@ -163,11 +163,7 @@ def main():
     print("See BENCHMARKING_INSTRUCTIONS.md for data preparation guidance.")
     print("\nPress Enter to use the default path, or provide your own path:")
 
-    default_path = Path(__file__).parent / "data" / "preprocessed_paaws_subset.csv"
-    dataset_path = input(f"Dataset path [{default_path}]: ").strip()
-
-    if not dataset_path:
-        dataset_path = str(default_path)
+    dataset_path = Path(__file__).parent / "data" / "preprocessed_paaws_subset.csv"
 
     # Prompt for model type
     print("\n" + "="*80)
@@ -178,9 +174,7 @@ def main():
     print("2. cnn_lstm - CNN-LSTM model")
     print("3. attentive_lstm - Multi-Head LSTM with Attention")
 
-    model_type = input("\nSelect model type [lstm]: ").strip().lower()
-    if not model_type or model_type not in ["lstm", "cnn_lstm", "attentive_lstm"]:
-        model_type = "lstm"
+    model_type = "lstm" # "lstm", "cnn_lstm", "attentive_lstm"
 
     # Run evaluation using existing script
     success = run_lstm_evaluation(dataset_path, model_type)
