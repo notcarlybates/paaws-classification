@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=lstm_eval
+#SBATCH --job-name=handedness_eval
 #SBATCH --output=/scratch/bates.car/jobs/%j/job_%j.out
 #SBATCH --error=/scratch/bates.car/jobs/%j/job_%j.err
-#SBATCH --time=8:00:00
+#SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
@@ -13,6 +13,5 @@ cd /home/bates.car/testing/paaws-classification
 
 source .venv/bin/activate
 
-# LSTM takes longer to train than RFT
-# Expect ~2-4 hours for 2 participants
-python evaluate_lstm_model.py
+cd $SLURM_SUBMIT_DIR
+python compare_handedness.py
