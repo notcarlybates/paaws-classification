@@ -141,14 +141,6 @@ def run_lstm_lopo(dataset="2", sensor="LeftWrist", mapping="lab_fl_5", lab=True,
     Returns:
         Dictionary with results for each participant
     """
-    # Import Potter's data loading functions (done inside to use config)
-    from get_and_clean_data import (
-        get_dataset_accel,
-        get_dataset_labels,
-        window_dataset_labels,
-        window_dataset_accel,
-    )
-
     # Setup configuration (similar to Potter's run_experiment.py)
     participants = DATASET_LISTS[dataset]
     activity_mapping = MAPPING_SCHEMES[mapping]
@@ -157,15 +149,8 @@ def run_lstm_lopo(dataset="2", sensor="LeftWrist", mapping="lab_fl_5", lab=True,
     idx_to_activity = {idx: act for act, idx in activity_to_idx.items()}
     num_classes = len(activities)
 
-    # Setup device
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
-
-    # Create output directory
-    results_dir = Path(__file__).parent / "benchmark_results" / "lstm_lopo"
-    results_dir.mkdir(parents=True, exist_ok=True)
-
     # Configuration dict (mimics Potter's config)
+    # IMPORTANT: This must be created BEFORE importing get_and_clean_data
     config = {
         "DATASET": dataset,
         "DATASETS": participants,
@@ -180,6 +165,22 @@ def run_lstm_lopo(dataset="2", sensor="LeftWrist", mapping="lab_fl_5", lab=True,
         "NUM_ACTS": num_classes,
     }
     sys.modules["config"] = type('Config', (), config)()
+
+    # Import Potter's data loading functions (after config is set up)
+    from get_and_clean_data import (
+        get_dataset_accel,
+        get_dataset_labels,
+        window_dataset_labels,
+        window_dataset_accel,
+    )
+
+    # Setup device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+
+    # Create output directory
+    results_dir = Path(__file__).parent / "benchmark_results" / "lstm_lopo"
+    results_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"\n{'='*80}")
     print("LSTM Model Evaluation - LOSO Cross-Validation")
