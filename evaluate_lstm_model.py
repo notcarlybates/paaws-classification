@@ -160,8 +160,6 @@ def main():
     print("\nProvide the path to your preprocessed dataset CSV file.")
     print("Example: C:\\path\\to\\preprocessed_paaws_data.csv")
     print("\nColumns required: x, y, z, label, subject_id")
-    print("See BENCHMARKING_INSTRUCTIONS.md for data preparation guidance.")
-    print("\nPress Enter to use the default path, or provide your own path:")
 
     dataset_path = Path(__file__).parent / "data" / "preprocessed_paaws_subset.csv"
 

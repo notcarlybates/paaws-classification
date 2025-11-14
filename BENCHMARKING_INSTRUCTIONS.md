@@ -398,10 +398,6 @@ For **LeftWrist** analysis:
 python compare_handedness.py
 ```
 
-When prompted:
-- Results directory: `benchmark_results/rft_lopo` (or press Enter for default)
-- Sensor location: `LeftWrist` (or press Enter for default)
-
 For **RightWrist** analysis, repeat with:
 - Sensor location: `RightWrist`
 - Results directory: `path/to/right_wrist_results/`
